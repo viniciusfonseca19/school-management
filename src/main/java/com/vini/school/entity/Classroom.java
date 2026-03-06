@@ -1,7 +1,9 @@
 package com.vini.school.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "classrooms")
 public class Classroom {
@@ -12,7 +14,5 @@ public class Classroom {
 
     private String name;
 
-    private String year;
-
-    public Classroom() {}
+    private Integer year;
 }

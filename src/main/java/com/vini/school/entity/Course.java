@@ -1,7 +1,9 @@
 package com.vini.school.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "courses")
 public class Course {
@@ -12,11 +14,8 @@ public class Course {
 
     private String name;
 
-    private String workload;
+    private Integer workload;
 
     @ManyToOne
-    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
-
-    public Course() {}
 }
