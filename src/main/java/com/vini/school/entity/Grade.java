@@ -1,7 +1,9 @@
 package com.vini.school.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "grades")
 public class Grade {
@@ -10,15 +12,13 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double score;
-
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "course_id")
-    private Course course;
+    @JoinColumn(name = "classroom_id")
+    private Classroom classroom;
 
-    public Grade() {}
+    private Double value;
 }
