@@ -1,6 +1,7 @@
 package com.vini.school.controller;
 
-import com.vini.school.entity.Classroom;
+import com.vini.school.dto.request.ClassroomRequestDTO;
+import com.vini.school.dto.response.ClassroomResponseDTO;
 import com.vini.school.service.ClassroomService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,28 +18,28 @@ public class ClassroomController {
     }
 
     @PostMapping
-    public Classroom createClassroom(@RequestBody Classroom classroom) {
-        return classroomService.createClassroom(classroom);
+    public ClassroomResponseDTO create(@RequestBody ClassroomRequestDTO dto) {
+        return classroomService.create(dto);
     }
 
     @GetMapping
-    public List<Classroom> getAllClassrooms() {
+    public List<ClassroomResponseDTO> getAll() {
         return classroomService.getAllClassrooms();
     }
 
     @GetMapping("/{id}")
-    public Classroom getClassroomById(@PathVariable Long id) {
+    public ClassroomResponseDTO getById(@PathVariable Long id) {
         return classroomService.getClassroomById(id);
     }
 
     @PutMapping("/{id}")
-    public Classroom updateClassroom(@PathVariable Long id,
-                                     @RequestBody Classroom classroom) {
-        return classroomService.updateClassroom(id, classroom);
+    public ClassroomResponseDTO update(@PathVariable Long id,
+                                       @RequestBody ClassroomRequestDTO dto) {
+        return classroomService.updateClassroom(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteClassroom(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         classroomService.deleteClassroom(id);
     }
 }

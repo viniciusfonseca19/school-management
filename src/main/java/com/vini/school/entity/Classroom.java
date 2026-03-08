@@ -14,5 +14,11 @@ public class Classroom {
 
     private String name;
 
-    private Integer year;
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
 }
