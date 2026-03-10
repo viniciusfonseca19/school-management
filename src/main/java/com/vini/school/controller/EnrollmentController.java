@@ -1,6 +1,7 @@
 package com.vini.school.controller;
 
-import com.vini.school.entity.Enrollment;
+import com.vini.school.dto.request.EnrollmentRequestDTO;
+import com.vini.school.dto.response.EnrollmentResponseDTO;
 import com.vini.school.service.EnrollmentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,28 +18,22 @@ public class EnrollmentController {
     }
 
     @PostMapping
-    public Enrollment createEnrollment(@RequestBody Enrollment enrollment) {
-        return enrollmentService.createEnrollment(enrollment);
+    public EnrollmentResponseDTO create(@RequestBody EnrollmentRequestDTO dto) {
+        return enrollmentService.create(dto);
     }
 
     @GetMapping
-    public List<Enrollment> getAllEnrollments() {
-        return enrollmentService.getAllEnrollments();
+    public List<EnrollmentResponseDTO> getAll() {
+        return enrollmentService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Enrollment getEnrollmentById(@PathVariable Long id) {
-        return enrollmentService.getEnrollmentById(id);
-    }
-
-    @PutMapping("/{id}")
-    public Enrollment updateEnrollment(@PathVariable Long id,
-                                       @RequestBody Enrollment enrollment) {
-        return enrollmentService.updateEnrollment(id, enrollment);
+    public EnrollmentResponseDTO getById(@PathVariable Long id) {
+        return enrollmentService.getById(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteEnrollment(@PathVariable Long id) {
-        enrollmentService.deleteEnrollment(id);
+    public void delete(@PathVariable Long id) {
+        enrollmentService.delete(id);
     }
 }
