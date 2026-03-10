@@ -1,6 +1,7 @@
 package com.vini.school.controller;
 
-import com.vini.school.entity.User;
+import com.vini.school.dto.request.UserRequestDTO;
+import com.vini.school.dto.response.UserResponseDTO;
 import com.vini.school.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,28 +18,22 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    public UserResponseDTO create(@RequestBody UserRequestDTO dto) {
+        return userService.create(dto);
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public List<UserResponseDTO> getAll() {
+        return userService.getAll();
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
-    }
-
-    @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id,
-                           @RequestBody User user) {
-        return userService.updateUser(id, user);
+    public UserResponseDTO getById(@PathVariable Long id) {
+        return userService.getById(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    public void delete(@PathVariable Long id) {
+        userService.delete(id);
     }
 }
