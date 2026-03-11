@@ -1,51 +1,64 @@
-import {useEffect,useState} from "react"
-import {getStudents,deleteStudent} from "../services/studentService"
-import Table from "../components/Table"
+import "../styles/page.css"
+import { FaPlus, FaEdit, FaTrash } from "react-icons/fa"
 
-function Students(){
+export default function Students() {
 
-const[students,setStudents]=useState([])
+  return (
 
-async function loadStudents(){
+    <div>
 
-const response = await getStudents()
+      <div className="page-header">
 
-setStudents(response.data)
+        <h1 className="page-title">Students</h1>
+
+        <button className="btn">
+          <FaPlus/> Add Student
+        </button>
+
+      </div>
+
+      <div className="card">
+
+        <table className="table">
+
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td>1</td>
+              <td>João Silva</td>
+              <td>joao@email.com</td>
+
+              <td className="actions">
+
+                <button className="icon-btn edit">
+                  <FaEdit/>
+                </button>
+
+                <button className="icon-btn delete">
+                  <FaTrash/>
+                </button>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  )
 
 }
-
-useEffect(()=>{
-
-loadStudents()
-
-},[])
-
-async function handleDelete(id){
-
-await deleteStudent(id)
-
-loadStudents()
-
-}
-
-return(
-
-<div>
-
-    <h2>Students</h2>
-
-    <Table
-
-        columns={["id","name","email"]} 
-        data={students}
-        onDelete={handleDelete}
-
-    />
-
-</div>
-
-)
-
-}
-
-export default Students

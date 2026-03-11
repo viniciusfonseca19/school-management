@@ -1,37 +1,44 @@
-function Dashboard() {
+import "../styles/page.css"
+import { FaUserGraduate, FaChalkboardTeacher, FaBook, FaSchool } from "react-icons/fa"
+
+export default function Dashboard() {
 
   return (
-    <div className="page">
 
-      <h1>Dashboard</h1>
+    <div>
 
-      <div className="cards">
+      <h1 className="page-title">Dashboard</h1>
 
-        <div className="card">
+      <div className="dashboard-grid">
+
+        <div className="card stat">
+          <FaUserGraduate className="stat-icon"/>
           <h3>Students</h3>
-          <p>Manage all students</p>
+          <p>120</p>
         </div>
 
-        <div className="card">
+        <div className="card stat">
+          <FaChalkboardTeacher className="stat-icon"/>
           <h3>Teachers</h3>
-          <p>Manage teachers</p>
+          <p>25</p>
         </div>
 
-        <div className="card">
+        <div className="card stat">
+          <FaBook className="stat-icon"/>
           <h3>Courses</h3>
-          <p>Manage courses</p>
+          <p>15</p>
         </div>
 
-        <div className="card">
+        <div className="card stat">
+          <FaSchool className="stat-icon"/>
           <h3>Classrooms</h3>
-          <p>Manage classrooms</p>
+          <p>10</p>
         </div>
 
       </div>
 
     </div>
+
   )
 
 }
-
-export default Dashboard
