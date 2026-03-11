@@ -27,12 +27,12 @@
     &quot;assignee&quot;: &quot;viniciusfonseca19&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/viniciusfonseca19/api-bank-system.git&quot;,
-    &quot;accountId&quot;: &quot;3d7bc65a-22a1-4b32-8a6d-5458ced729ae&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/viniciusfonseca19/school-management.git",
+    "accountId": "3d7bc65a-22a1-4b32-8a6d-5458ced729ae"
   }
-}</component>
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
