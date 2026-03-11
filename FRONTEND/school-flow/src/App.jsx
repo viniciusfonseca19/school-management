@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
 
 import Dashboard from "./pages/Dashboard";
 import Students from "./pages/Students";
@@ -11,32 +12,42 @@ import Enrollments from "./pages/Enrollments";
 import Grades from "./pages/Grades";
 
 function App() {
+
   return (
+
     <BrowserRouter>
 
       <div className="layout">
 
         <Sidebar />
 
-        <div className="content">
+        <div className="main">
 
-          <Routes>
+          <Header />
 
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/students" element={<Students />} />
-            <Route path="/teachers" element={<Teachers />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/classrooms" element={<Classrooms />} />
-            <Route path="/enrollments" element={<Enrollments />} />
-            <Route path="/grades" element={<Grades />} />
+          <div className="content">
 
-          </Routes>
+            <Routes>
+
+              <Route path="/" element={<Dashboard />} />
+
+              <Route path="/students" element={<Students />} />
+              <Route path="/teachers" element={<Teachers />} />
+              <Route path="/courses" element={<Courses />} />
+              <Route path="/classrooms" element={<Classrooms />} />
+              <Route path="/enrollments" element={<Enrollments />} />
+              <Route path="/grades" element={<Grades />} />
+
+            </Routes>
+
+          </div>
 
         </div>
 
       </div>
 
     </BrowserRouter>
+
   );
 }
 

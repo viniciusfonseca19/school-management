@@ -1,46 +1,51 @@
-function Table({ columns, data, onDelete }) {
+function Table({columns,data,onDelete}){
 
-  return (
-    <table>
+return(
 
-      <thead>
-        <tr>
+<table>
 
-          {columns.map((col) => (
-            <th key={col}>{col}</th>
-          ))}
+<thead>
 
-          <th>Ações</th>
+<tr>
 
-        </tr>
-      </thead>
+{columns.map((col)=>(
+<th key={col}>{col}</th>
+))}
 
-      <tbody>
+<th>Actions</th>
 
-        {data.map((item) => (
+</tr>
 
-          <tr key={item.id}>
+</thead>
 
-            {columns.map((col) => (
-              <td key={col}>{item[col]}</td>
-            ))}
+<tbody>
 
-            <td>
+{data.map((item)=>(
 
-              <button onClick={() => onDelete(item.id)}>
-                Delete
-              </button>
+<tr key={item.id}>
 
-            </td>
+{columns.map((col)=>(
+<td key={col}>{item[col]}</td>
+))}
 
-          </tr>
+<td>
 
-        ))}
+<button onClick={()=>onDelete(item.id)}>
+Delete
+</button>
 
-      </tbody>
+</td>
 
-    </table>
-  );
+</tr>
+
+))}
+
+</tbody>
+
+</table>
+
+)
+
 }
 
-export default Table;
+export default Table
