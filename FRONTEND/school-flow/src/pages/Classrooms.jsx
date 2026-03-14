@@ -1,66 +1,74 @@
-import "../styles/page.css"
-import { FaPlus, FaEdit, FaTrash } from "react-icons/fa"
+import { useEffect, useState } from "react";
+import { getClassrooms, createClassroom, deleteClassroom } from "../api/classroomsApi";
 
-export default function Classrooms() {
+import DataTable from "../components/DataTable";
+import AddModal from "../components/AddModal";
 
-  return (
+export default function Classrooms(){
 
-    <div>
+const [classrooms,setClassrooms] = useState([])
+const [openModal,setOpenModal] = useState(false)
 
-      <div className="page-header">
+async function load(){
 
-        <h1 className="page-title">Classrooms</h1>
+const res = await getClassrooms()
 
-        <button className="btn">
-          <FaPlus/> Add Classroom
-        </button>
+setClassrooms(res.data)
 
-      </div>
+}
 
-      <div className="card">
+useEffect(()=>{
+load()
+},[])
 
-        <table className="table">
+async function handleAdd(data){
 
-          <thead>
+await createClassroom(data)
 
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Capacity</th>
-              <th>Actions</th>
-            </tr>
+load()
 
-          </thead>
+}
 
-          <tbody>
+async function handleDelete(id){
 
-            <tr>
-              <td>1</td>
-              <td>Room A</td>
-              <td>30</td>
+await deleteClassroom(id)
 
-              <td className="actions">
+load()
 
-                <button className="icon-btn edit">
-                  <FaEdit/>
-                </button>
+}
 
-                <button className="icon-btn delete">
-                  <FaTrash/>
-                </button>
+return(
 
-              </td>
+<div className="page">
 
-            </tr>
+<h1>Classrooms</h1>
 
-          </tbody>
+<button
+className="add-btn"
+onClick={()=>setOpenModal(true)}
+>
+Add Classroom
+</button>
 
-        </table>
+<DataTable
+columns={["name"]}
+data={classrooms}
+onDelete={handleDelete}
+/>
 
-      </div>
+{openModal && (
 
-    </div>
+<AddModal
+title="Add Classroom"
+fields={["name"]}
+onSubmit={handleAdd}
+close={()=>setOpenModal(false)}
+/>
 
-  )
+)}
+
+</div>
+
+)
 
 }

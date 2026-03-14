@@ -1,66 +1,75 @@
-import "../styles/page.css"
-import { FaPlus, FaEdit, FaTrash } from "react-icons/fa"
+import { useEffect, useState } from "react";
+import { getTeachers, createTeacher, deleteTeacher } from "../api/teachersApi";
 
-export default function Teachers() {
+import DataTable from "../components/DataTable";
+import AddModal from "../components/AddModal";
 
-  return (
+export default function Teachers(){
 
-    <div>
+const [teachers,setTeachers] = useState([])
 
-      <div className="page-header">
+const [openModal,setOpenModal] = useState(false)
 
-        <h1 className="page-title">Teachers</h1>
+async function load(){
 
-        <button className="btn">
-          <FaPlus/> Add Teacher
-        </button>
+const res = await getTeachers()
 
-      </div>
+setTeachers(res.data)
 
-      <div className="card">
+}
 
-        <table className="table">
+useEffect(()=>{
+load()
+},[])
 
-          <thead>
+async function handleAdd(data){
 
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Specialty</th>
-              <th>Actions</th>
-            </tr>
+await createTeacher(data)
 
-          </thead>
+load()
 
-          <tbody>
+}
 
-            <tr>
-              <td>1</td>
-              <td>Maria Oliveira</td>
-              <td>Mathematics</td>
+async function handleDelete(id){
 
-              <td className="actions">
+await deleteTeacher(id)
 
-                <button className="icon-btn edit">
-                  <FaEdit/>
-                </button>
+load()
 
-                <button className="icon-btn delete">
-                  <FaTrash/>
-                </button>
+}
 
-              </td>
+return(
 
-            </tr>
+<div className="page">
 
-          </tbody>
+<h1>Teachers</h1>
 
-        </table>
+<button
+className="add-btn"
+onClick={()=>setOpenModal(true)}
+>
+Add Teacher
+</button>
 
-      </div>
+<DataTable
+columns={["name","email"]}
+data={teachers}
+onDelete={handleDelete}
+/>
 
-    </div>
+{openModal && (
 
-  )
+<AddModal
+title="Add Teacher"
+fields={["name","email"]}
+onSubmit={handleAdd}
+close={()=>setOpenModal(false)}
+/>
+
+)}
+
+</div>
+
+)
 
 }

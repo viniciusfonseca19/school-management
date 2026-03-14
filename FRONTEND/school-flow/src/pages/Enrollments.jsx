@@ -1,66 +1,76 @@
-import "../styles/page.css"
-import { FaPlus, FaEdit, FaTrash } from "react-icons/fa"
+import { useEffect, useState } from "react";
 
-export default function Enrollments() {
+import { getEnrollments, createEnrollment, deleteEnrollment }
+from "../api/enrollmentsApi";
 
-  return (
+import DataTable from "../components/DataTable";
+import AddModal from "../components/AddModal";
 
-    <div>
+export default function Enrollments(){
 
-      <div className="page-header">
+const [enrollments,setEnrollments] = useState([])
+const [openModal,setOpenModal] = useState(false)
 
-        <h1 className="page-title">Enrollments</h1>
+async function load(){
 
-        <button className="btn">
-          <FaPlus/> New Enrollment
-        </button>
+const res = await getEnrollments()
 
-      </div>
+setEnrollments(res.data)
 
-      <div className="card">
+}
 
-        <table className="table">
+useEffect(()=>{
+load()
+},[])
 
-          <thead>
+async function handleAdd(data){
 
-            <tr>
-              <th>ID</th>
-              <th>Student</th>
-              <th>Course</th>
-              <th>Actions</th>
-            </tr>
+await createEnrollment(data)
 
-          </thead>
+load()
 
-          <tbody>
+}
 
-            <tr>
-              <td>1</td>
-              <td>João Silva</td>
-              <td>Computer Science</td>
+async function handleDelete(id){
 
-              <td className="actions">
+await deleteEnrollment(id)
 
-                <button className="icon-btn edit">
-                  <FaEdit/>
-                </button>
+load()
 
-                <button className="icon-btn delete">
-                  <FaTrash/>
-                </button>
+}
 
-              </td>
+return(
 
-            </tr>
+<div className="page">
 
-          </tbody>
+<h1>Enrollments</h1>
 
-        </table>
+<button
+className="add-btn"
+onClick={()=>setOpenModal(true)}
+>
+Add Enrollment
+</button>
 
-      </div>
+<DataTable
+columns={["studentId","courseId"]}
+data={enrollments}
+onDelete={handleDelete}
+/>
 
-    </div>
+{openModal && (
 
-  )
+<AddModal
+title="Add Enrollment"
+fields={["studentId","courseId"]}
+onSubmit={handleAdd}
+close={()=>setOpenModal(false)}
+/>
+
+)}
+
+</div>
+
+)
 
 }

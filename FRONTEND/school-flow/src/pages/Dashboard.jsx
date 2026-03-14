@@ -1,44 +1,98 @@
-import "../styles/page.css"
-import { FaUserGraduate, FaChalkboardTeacher, FaBook, FaSchool } from "react-icons/fa"
+import { useEffect, useState } from "react";
+import { FaUsers, FaChalkboardTeacher, FaBook, FaDoorOpen, FaClipboardList } from "react-icons/fa";
 
-export default function Dashboard() {
+import { getStudents } from "../api/studentsApi";
+import { getTeachers } from "../api/teachersApi";
+import { getCourses } from "../api/coursesApi";
+import { getClassrooms } from "../api/classroomsApi";
+import { getEnrollments } from "../api/enrollmentsApi";
 
-  return (
+export default function Dashboard(){
 
-    <div>
+const [stats,setStats] = useState({
+students:0,
+teachers:0,
+courses:0,
+classrooms:0,
+enrollments:0
+})
 
-      <h1 className="page-title">Dashboard</h1>
+const [loading, setLoading] = useState(true);
 
-      <div className="dashboard-grid">
+useEffect(()=>{
 
-        <div className="card stat">
-          <FaUserGraduate className="stat-icon"/>
-          <h3>Students</h3>
-          <p>120</p>
-        </div>
+async function load(){
 
-        <div className="card stat">
-          <FaChalkboardTeacher className="stat-icon"/>
-          <h3>Teachers</h3>
-          <p>25</p>
-        </div>
+try{
 
-        <div className="card stat">
-          <FaBook className="stat-icon"/>
-          <h3>Courses</h3>
-          <p>15</p>
-        </div>
+const students = await getStudents()
+const teachers = await getTeachers()
+const courses = await getCourses()
+const classrooms = await getClassrooms()
+const enrollments = await getEnrollments()
 
-        <div className="card stat">
-          <FaSchool className="stat-icon"/>
-          <h3>Classrooms</h3>
-          <p>10</p>
-        </div>
+setStats({
+students:students.data.length,
+teachers:teachers.data.length,
+courses:courses.data.length,
+classrooms:classrooms.data.length,
+enrollments:enrollments.data.length
+})
 
-      </div>
+}catch(e){
 
-    </div>
+console.error("Erro dashboard:",e)
 
-  )
+} finally {
+setLoading(false);
+}
+
+}
+
+load()
+
+},[])
+
+if (loading) {
+return <div className="loading">Loading...</div>;
+}
+
+return(
+
+<div className="dashboard">
+
+<div className="card">
+<FaUsers className="card-icon" />
+<h2>{stats.students}</h2>
+<p>Students</p>
+</div>
+
+<div className="card">
+<FaChalkboardTeacher className="card-icon" />
+<h2>{stats.teachers}</h2>
+<p>Teachers</p>
+</div>
+
+<div className="card">
+<FaBook className="card-icon" />
+<h2>{stats.courses}</h2>
+<p>Courses</p>
+</div>
+
+<div className="card">
+<FaDoorOpen className="card-icon" />
+<h2>{stats.classrooms}</h2>
+<p>Classrooms</p>
+</div>
+
+<div className="card">
+<FaClipboardList className="card-icon" />
+<h2>{stats.enrollments}</h2>
+<p>Enrollments</p>
+</div>
+
+</div>
+
+)
 
 }

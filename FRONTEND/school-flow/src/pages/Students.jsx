@@ -1,64 +1,78 @@
-import "../styles/page.css"
-import { FaPlus, FaEdit, FaTrash } from "react-icons/fa"
+import { useEffect, useState } from "react";
+import { getStudents, createStudent, deleteStudent } from "../api/studentsApi";
 
-export default function Students() {
+import DataTable from "../components/DataTable";
+import AddModal from "../components/AddModal";
+import SearchBar from "../components/SearchBar";
 
-  return (
+export default function Students(){
 
-    <div>
+const [students,setStudents] = useState([])
 
-      <div className="page-header">
+const [openModal,setOpenModal] = useState(false)
 
-        <h1 className="page-title">Students</h1>
+async function load(){
 
-        <button className="btn">
-          <FaPlus/> Add Student
-        </button>
+const res = await getStudents()
 
-      </div>
+setStudents(res.data)
 
-      <div className="card">
+}
 
-        <table className="table">
+useEffect(()=>{
+load()
+},[])
 
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
+async function handleAdd(data){
 
-          <tbody>
+await createStudent(data)
 
-            <tr>
-              <td>1</td>
-              <td>João Silva</td>
-              <td>joao@email.com</td>
+load()
 
-              <td className="actions">
+}
 
-                <button className="icon-btn edit">
-                  <FaEdit/>
-                </button>
+async function handleDelete(id){
 
-                <button className="icon-btn delete">
-                  <FaTrash/>
-                </button>
+await deleteStudent(id)
 
-              </td>
+load()
 
-            </tr>
+}
 
-          </tbody>
+return(
 
-        </table>
+<div className="page">
 
-      </div>
+<h1>Students</h1>
 
-    </div>
+<SearchBar />
 
-  )
+<button
+className="add-btn"
+onClick={()=>setOpenModal(true)}
+>
+Add Student
+</button>
+
+<DataTable
+columns={["name","email"]}
+data={students}
+onDelete={handleDelete}
+/>
+
+{openModal && (
+
+<AddModal
+title="Add Student"
+fields={["name","email"]}
+onSubmit={handleAdd}
+close={()=>setOpenModal(false)}
+/>
+
+)}
+
+</div>
+
+)
 
 }

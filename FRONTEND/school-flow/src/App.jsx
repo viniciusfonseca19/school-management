@@ -1,7 +1,7 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
 
 import Sidebar from "./components/Sidebar"
-import Topbar from "./components/Topbar"
+import Navbar from "./components/Navbar"
 
 import Dashboard from "./pages/Dashboard"
 import Students from "./pages/Students"
@@ -9,50 +9,94 @@ import Teachers from "./pages/Teachers"
 import Courses from "./pages/Courses"
 import Classrooms from "./pages/Classrooms"
 import Enrollments from "./pages/Enrollments"
+import Login from "./pages/Login"
 
-import "./styles/theme.css"
-import "./styles/layout.css"
+export default function App(){
 
-export default function App() {
+return(
 
-  return (
+<div className="layout">
 
-    <BrowserRouter>
+<Routes>
 
-      <div className="app">
+<Route path="/login" element={<Login />} />
 
-        <Sidebar />
-
-        <div className="main">
-
-          <Topbar />
-
-          <div className="page">
-
-            <Routes>
-
-              <Route path="/" element={<Dashboard />} />
-
-              <Route path="/students" element={<Students />} />
-
-              <Route path="/teachers" element={<Teachers />} />
-
-              <Route path="/courses" element={<Courses />} />
-
-              <Route path="/classrooms" element={<Classrooms />} />
-
-              <Route path="/enrollments" element={<Enrollments />} />
-
-            </Routes>
-
-          </div>
-
-        </div>
-
+<Route path="/" element={
+  <>
+    <Sidebar/>
+    <div className="main">
+      <Navbar/>
+      <div className="page-content">
+        <Dashboard/>
       </div>
+    </div>
+  </>
+}/>
 
-    </BrowserRouter>
+<Route path="/students" element={
+  <>
+    <Sidebar/>
+    <div className="main">
+      <Navbar/>
+      <div className="page-content">
+        <Students/>
+      </div>
+    </div>
+  </>
+}/>
 
-  )
+<Route path="/teachers" element={
+  <>
+    <Sidebar/>
+    <div className="main">
+      <Navbar/>
+      <div className="page-content">
+        <Teachers/>
+      </div>
+    </div>
+  </>
+}/>
+
+<Route path="/courses" element={
+  <>
+    <Sidebar/>
+    <div className="main">
+      <Navbar/>
+      <div className="page-content">
+        <Courses/>
+      </div>
+    </div>
+  </>
+}/>
+
+<Route path="/classrooms" element={
+  <>
+    <Sidebar/>
+    <div className="main">
+      <Navbar/>
+      <div className="page-content">
+        <Classrooms/>
+      </div>
+    </div>
+  </>
+}/>
+
+<Route path="/enrollments" element={
+  <>
+    <Sidebar/>
+    <div className="main">
+      <Navbar/>
+      <div className="page-content">
+        <Enrollments/>
+      </div>
+    </div>
+  </>
+}/>
+
+</Routes>
+
+</div>
+
+)
 
 }

@@ -1,66 +1,74 @@
-import "../styles/page.css"
-import { FaPlus, FaEdit, FaTrash } from "react-icons/fa"
+import { useEffect, useState } from "react";
+import { getCourses, createCourse, deleteCourse } from "../api/coursesApi";
 
-export default function Courses() {
+import DataTable from "../components/DataTable";
+import AddModal from "../components/AddModal";
 
-  return (
+export default function Courses(){
 
-    <div>
+const [courses,setCourses] = useState([])
+const [openModal,setOpenModal] = useState(false)
 
-      <div className="page-header">
+async function load(){
 
-        <h1 className="page-title">Courses</h1>
+const res = await getCourses()
 
-        <button className="btn">
-          <FaPlus/> Add Course
-        </button>
+setCourses(res.data)
 
-      </div>
+}
 
-      <div className="card">
+useEffect(()=>{
+load()
+},[])
 
-        <table className="table">
+async function handleAdd(data){
 
-          <thead>
+await createCourse(data)
 
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Workload</th>
-              <th>Actions</th>
-            </tr>
+load()
 
-          </thead>
+}
 
-          <tbody>
+async function handleDelete(id){
 
-            <tr>
-              <td>1</td>
-              <td>Computer Science</td>
-              <td>80h</td>
+await deleteCourse(id)
 
-              <td className="actions">
+load()
 
-                <button className="icon-btn edit">
-                  <FaEdit/>
-                </button>
+}
 
-                <button className="icon-btn delete">
-                  <FaTrash/>
-                </button>
+return(
 
-              </td>
+<div className="page">
 
-            </tr>
+<h1>Courses</h1>
 
-          </tbody>
+<button
+className="add-btn"
+onClick={()=>setOpenModal(true)}
+>
+Add Course
+</button>
 
-        </table>
+<DataTable
+columns={["name","description"]}
+data={courses}
+onDelete={handleDelete}
+/>
 
-      </div>
+{openModal && (
 
-    </div>
+<AddModal
+title="Add Course"
+fields={["name","description"]}
+onSubmit={handleAdd}
+close={()=>setOpenModal(false)}
+/>
 
-  )
+)}
+
+</div>
+
+)
 
 }
