@@ -6,12 +6,12 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      '/students':    { target: 'http://localhost:8080', changeOrigin: true },
-      '/teachers':    { target: 'http://localhost:8080', changeOrigin: true },
-      '/courses':     { target: 'http://localhost:8080', changeOrigin: true },
-      '/classrooms':  { target: 'http://localhost:8080', changeOrigin: true },
-      '/enrollments': { target: 'http://localhost:8080', changeOrigin: true },
-      '/users':       { target: 'http://localhost:8080', changeOrigin: true },
+      '/students':    { target: 'https://school-flow-prrt.onrender.com', changeOrigin: true },
+      '/teachers':    { target: 'https://school-flow-prrt.onrender.com', changeOrigin: true },
+      '/courses':     { target: 'https://school-flow-prrt.onrender.com', changeOrigin: true },
+      '/classrooms':  { target: 'https://school-flow-prrt.onrender.com', changeOrigin: true },
+      '/enrollments': { target: 'https://school-flow-prrt.onrender.com', changeOrigin: true },
+      '/users':       { target: 'https://school-flow-prrt.onrender.com', changeOrigin: true },
     },
   },
 });
