@@ -6,12 +6,12 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      '/students':    { target: 'http://localhost:8080', changeOrigin: true },
-      '/teachers':    { target: 'http://localhost:8080', changeOrigin: true },
-      '/courses':     { target: 'http://localhost:8080', changeOrigin: true },
-      '/classrooms':  { target: 'http://localhost:8080', changeOrigin: true },
-      '/enrollments': { target: 'http://localhost:8080', changeOrigin: true },
-      '/users':       { target: 'http://localhost:8080', changeOrigin: true },
+      '/students':    { target: 'https://caryl-unbrave-eldon.ngrok-free.dev', changeOrigin: true },
+      '/teachers':    { target: 'https://caryl-unbrave-eldon.ngrok-free.dev', changeOrigin: true },
+      '/courses':     { target: 'https://caryl-unbrave-eldon.ngrok-free.dev', changeOrigin: true },
+      '/classrooms':  { target: 'https://caryl-unbrave-eldon.ngrok-free.dev', changeOrigin: true },
+      '/enrollments': { target: 'https://caryl-unbrave-eldon.ngrok-free.dev', changeOrigin: true },
+      '/users':       { target: 'https://caryl-unbrave-eldon.ngrok-free.dev', changeOrigin: true },
     },
   },
 });
